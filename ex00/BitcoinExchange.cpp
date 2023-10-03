@@ -6,7 +6,7 @@
 /*   By: mjourno <mjourno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:40:58 by mjourno           #+#    #+#             */
-/*   Updated: 2023/10/03 15:55:53 by mjourno          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:58:34 by mjourno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ BitcoinExchange::BitcoinExchange(std::string csv) {
 	}
 
 	while (myfile && std::getline(myfile, line)) {
-		struct tm	tm;
+		struct tm	tm = {};
 		if (!strptime(line.c_str(), "%Y-%m-%d", &tm)) {
 			std::cerr << "Error while parsing time on line: " << line << std::endl;
 			continue;
 		}
+		tm.tm_isdst = -1;
 		time_t	t = mktime(&tm);
 		if (t == -1) {
 			std::cerr << "Error while parsing time on line: " << line << std::endl;
