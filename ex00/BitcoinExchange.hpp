@@ -6,13 +6,14 @@
 /*   By: mjourno <mjourno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:40:56 by mjourno           #+#    #+#             */
-/*   Updated: 2023/10/02 17:05:46 by mjourno          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:51:55 by mjourno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITCOINEXCHANGE
 # define BITCOINEXCHANGE
 
+#include <time.h>
 # include <map>
 # include <cmath>
 # include <string>
@@ -30,6 +31,7 @@ class	BitcoinExchange {
 		~BitcoinExchange();
 
 		BitcoinExchange(std::string	csv);
+		void	money(char *filename);
 };
 
 #endif
