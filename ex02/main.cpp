@@ -6,7 +6,7 @@
 /*   By: mjourno <mjourno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:19:36 by mjourno           #+#    #+#             */
-/*   Updated: 2023/10/06 12:48:08 by mjourno          ###   ########.fr       */
+/*   Updated: 2023/10/06 19:20:04 by mjourno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int	main(int argc, char **argv) {
 
 	std::cout << "After:";
 	print(v);
+	for (size_t i = 0; i < v.size() - 1; i++) {
+		if (v[i] > v [i + 1])
+			std::cout << "Error" << std::endl;
+	}
 
 	return 0;
 }
