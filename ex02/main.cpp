@@ -6,15 +6,19 @@
 /*   By: mjourno <mjourno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:19:36 by mjourno           #+#    #+#             */
-/*   Updated: 2023/10/06 19:20:04 by mjourno          ###   ########.fr       */
+/*   Updated: 2023/10/06 20:54:32 by mjourno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-void	print(std::vector<int> container) {
-	std::vector<int>::iterator	b = container.begin();
-	std::vector<int>::iterator	e = container.end();
+#include <bits/stdc++.h>
+#include <sys/time.h>
+
+template<typename T>
+void	print(T container) {
+	typename T::iterator	b = container.begin();
+	typename T::iterator	e = container.end();
 	std::cout << "	";
 	while (b != e) {
 		std::cout << " " << *b;
@@ -25,6 +29,7 @@ void	print(std::vector<int> container) {
 
 int	main(int argc, char **argv) {
 	std::vector<int>	v;
+	std::deque<int>		d;
 
 	if (argc <= 2)
 		return std::cout << "Error: Must have multiple arguments" << std::endl, 1;
@@ -39,15 +44,30 @@ int	main(int argc, char **argv) {
 		if (nb < 0 || nb > INT_MAX)
 			return std::cout << "Error: Argument bigger than int: " << argv[i] << std::endl, 1;
 		v.push_back(nb);
+		d.push_back(nb);
 	}
 
 	std::cout << "Before:";
 	print(v);
 
+	struct timeval start, end;
+	gettimeofday(&start, NULL);
+
 	merge_insertion(v);
+
+	gettimeofday(&end, NULL);
+
+	merge_insertion(d);
 
 	std::cout << "After:";
 	print(v);
+
+	double time_taken;
+	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
+	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
+	std::cout << std::fixed << time_taken << std::setprecision(6) << " sec" << std::endl;
+
+
 	for (size_t i = 0; i < v.size() - 1; i++) {
 		if (v[i] > v [i + 1])
 			std::cout << "Error" << std::endl;
