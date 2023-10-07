@@ -6,7 +6,7 @@
 /*   By: mjourno <mjourno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:19:36 by mjourno           #+#    #+#             */
-/*   Updated: 2023/10/06 20:54:32 by mjourno          ###   ########.fr       */
+/*   Updated: 2023/10/07 11:58:33 by mjourno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ int	main(int argc, char **argv) {
 
 	merge_insertion(v);
 
-	gettimeofday(&end, NULL);
+	for (size_t i = 0; i < v.size() - 1; i++) {
+		if (v[i] > v[i + 1])
+			std::cout << "Error" << std::endl;
+	}
 
-	merge_insertion(d);
+	gettimeofday(&end, NULL);
 
 	std::cout << "After:";
 	print(v);
@@ -65,13 +68,21 @@ int	main(int argc, char **argv) {
 	double time_taken;
 	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
 	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
-	std::cout << std::fixed << time_taken << std::setprecision(6) << " sec" << std::endl;
+	std::cout << "Time to process a range of " << v.size() << " elements with std::vector: " << std::fixed << time_taken << std::setprecision(6) << " sec" << std::endl;
 
+	gettimeofday(&start, NULL);
 
-	for (size_t i = 0; i < v.size() - 1; i++) {
-		if (v[i] > v [i + 1])
+	merge_insertion(d);
+
+	for (size_t i = 0; i < d.size() - 1; i++) {
+		if (d[i] > d[i + 1])
 			std::cout << "Error" << std::endl;
 	}
+
+	gettimeofday(&end, NULL);
+	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
+	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
+	std::cout << "Time to process a range of " << d.size() << " elements with std::deque: " << std::fixed << time_taken << std::setprecision(6) << " sec" << std::endl;
 
 	return 0;
 }
