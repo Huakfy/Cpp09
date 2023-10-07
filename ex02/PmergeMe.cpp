@@ -6,7 +6,7 @@
 /*   By: mjourno <mjourno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:59:00 by mjourno           #+#    #+#             */
-/*   Updated: 2023/10/07 11:38:59 by mjourno          ###   ########.fr       */
+/*   Updated: 2023/10/07 13:02:46 by mjourno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,22 @@ void	sort_in_pairs(T &x, T &y, size_t size) {
 
 template<typename T>
 void	sort_pairs(T &x, T &y, size_t size) {
-	for (size_t i = 0; i < ((size / 2) - 1); i++) {
+	if (size == 1)
+		return;
+
+	for (size_t i = 0; i < size - 1; i++) {
 		if (x[i] > x[i + 1]) {
 			int	temp = x[i];
 			x[i] = x[i + 1];
 			x[i + 1] = temp;
 
-			int	temp2 = y[i];
+			temp = y[i];
 			y[i] = y[i + 1];
-			y[i + 1 ] = temp2;
-			i = -1;
+			y[i + 1 ] = temp;
 		}
 	}
+
+	return sort_pairs(x, y, size - 1);
 }
 
 int Jacobsthal(int n)
@@ -104,7 +108,7 @@ void	merge_insertion(std::vector<int> &container) {
 	//2 Sort numbers in each pairs
 	sort_in_pairs(x, y, size);
 	//3 Sort pairs per biggest number
-	sort_pairs(x, y, size);
+	sort_pairs(x, y, size / 2);
 	//4 Insert small element of first pair at the start
 	x.insert(x.begin(), y[0]);
 	y.erase(y.begin());
@@ -127,7 +131,7 @@ void	merge_insertion(std::deque<int> &container) {
 	//2 Sort numbers in each pairs
 	sort_in_pairs(x, y, size);
 	//3 Sort pairs per biggest number
-	sort_pairs(x, y, size);
+	sort_pairs(x, y, size / 2);
 	//4 Insert small element of first pair at the start
 	x.insert(x.begin(), y[0]);
 	y.erase(y.begin());
